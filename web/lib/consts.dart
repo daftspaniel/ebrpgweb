@@ -1,0 +1,41 @@
+String gametitle = "8bit RPG";
+
+enum gameStates { TitleScreen, GameOn, GameOver }
+const int ROCK =0;
+const int MAINROUTE = 1;
+const int GRASS = 3;
+const int HOMEFLOOR = 2;
+const int FTREE = 4;
+const int GOLDORE = 5;
+
+const int BRICK = 12;
+const int DOOR = 13;
+const int WATER = 14;
+
+const int PORTAL = 99;
+const int CHEST = 101;
+const int SHRUB = 102;
+const int FLOWER = 103;
+
+const int DIAMOND = 1001;
+const int APPLE = 1002;
+const int APRICOT = 1003;
+
+const int NINJA = 2001;
+const int BLOB = 2002;
+const int EVILSAGE = 2003;
+const int GHOST = 2004;
+const int PHANTOM = 2005;
+const int SNAIL = 2006;
+const int SNAKE = 2007;
+const int SPIDER = 2008;
+const int HEDGE = 2009;
+const int DRAGON = 2010;
+
+
+const int MAXMON = 9;
+const int DUCK = 3001;
+const int LLAMA = 3002;
+const int SAGE = 3003;
+const int FARMER = 3004;
+const int SHOPKEEPER = 3005;
