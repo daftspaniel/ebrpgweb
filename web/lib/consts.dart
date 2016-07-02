@@ -7,6 +7,10 @@ const int GRASS = 3;
 const int HOMEFLOOR = 2;
 const int FTREE = 4;
 const int GOLDORE = 5;
+const int LINE = 6;
+const int VERTLINE = 7;
+const int TJOINLINE = 8;
+const int HEART = 9;
 
 const int BRICK = 12;
 const int DOOR = 13;
@@ -20,6 +24,7 @@ const int FLOWER = 103;
 const int DIAMOND = 1001;
 const int APPLE = 1002;
 const int APRICOT = 1003;
+const int DIAMOND_GREY = 1004;
 
 const int NINJA = 2001;
 const int BLOB = 2002;
