@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'statuslist.dart';
 import 'grid.dart';
 import 'screen.dart';
@@ -6,6 +7,7 @@ import 'package:malison/malison.dart';
 import 'helpers.dart';
 import 'glyphcache.dart';
 import 'consts.dart';
+import 'player.dart';
 
 class EBGame {
   final String line = "--" * 40;
@@ -13,16 +15,22 @@ class EBGame {
   StatusList status;
   Grid village;
   EightBitScreen screen;
+  Player p1;
 
   bool screenUpdateRequired = true;
+  List<int> obstacles = [BRICK, SHRUB, FLOWER, WATER, FARMER, SAGE, LLAMA, SHOPKEEPER, DUCK,ROCK];
 
   EBGame(this.screen) {
+    p1 = new Player();
+    p1.x = 5;
+    p1.y = 5;
     status = new StatusList();
     village = buildVillage();
-    new Timer.periodic(new Duration(milliseconds: 1000), (timer) => update());
+    new Timer.periodic(new Duration(milliseconds: 100), (timer) => update());
+    setControls();
   }
 
-  update() {
+  void update() {
     status.add("moo");
     drawRoom();
   }
@@ -44,16 +52,35 @@ class EBGame {
           drawChar(ox + xx, oy + yy, village[xx][yy]);
         }
       }
-      screen.terminal.writeAt(ox + 5, oy + 5, "@", Color.yellow, Color.purple);
-      for (int i = 0; i < 10; i++) {
-        screen.terminal.drawGlyph(3 + i, 33, getGlyph(HEART));
-        screen.terminal.drawGlyph(3 + i, 35, getGlyph(DIAMOND_GREY));
-      }
+      screen.terminal
+          .writeAt(ox + p1.x, oy + p1.y, "@", Color.yellow, Color.purple);
+      displayUserDetails();
       int sy = 32;
       status.statusMessages.forEach(
           (String status) => screen.terminal.writeAt(44, sy++, status));
       screen.render();
       screenUpdateRequired = false;
+    }
+  }
+
+  void displayUserDetails() {
+    screen.terminal.writeAt(3, 32, 'NAME  ${p1.name}');
+    screen.terminal.writeAt(3, 34, 'HP    ${p1.hp}');
+
+    screen.terminal.writeAt(3, 36, 'LEVEL ${p1.level}');
+    screen.terminal.writeAt(15, 36, 'XP    ${p1.exp}');
+
+    screen.terminal.writeAt(3, 37, 'GOLD    ${p1.gold}');
+    screen.terminal.writeAt(15, 37, 'FOOD    ${p1.food}');
+
+    for (int i = 0; i < p1.heartCount; i++) {
+      screen.terminal.drawGlyph(3 + i, 38, getGlyph(HEART));
+    }
+    for (int i = 0; i < p1.diamonds; i++) {
+      screen.terminal.drawGlyph(3 + i, 39, getGlyph(DIAMOND));
+    }
+    for (int i = p1.diamonds; i < (10 - p1.diamonds); i++) {
+      screen.terminal.drawGlyph(3 + i, 39, getGlyph(DIAMOND_GREY));
     }
   }
 
@@ -66,5 +93,32 @@ class EBGame {
     //} else {
     //screen.terminal.writeAt(x, y, index.toString()[0]);
     //}
+  }
+
+  void setControls() {
+    window.onKeyUp.listen((KeyboardEvent e) {
+      int xdelta = 0;
+      int ydelta = 0;
+      if (e.keyCode == 38) {
+        ydelta = -1;
+      }
+      if (e.keyCode == 40) {
+        ydelta = 1;
+      }
+      if (e.keyCode == 39) {
+        xdelta++;
+      }
+      if (e.keyCode == 37) {
+        xdelta--;
+      }
+
+      int target = village.get(p1.x + xdelta, p1.y + ydelta);
+
+      if (target != -1 && obstacles.indexOf(target) == -1) {
+        p1.x += xdelta;
+        p1.y += ydelta;
+      }
+      screenUpdateRequired = true;
+    });
   }
 }

@@ -29,4 +29,9 @@ class Grid {
   void set(int i, int j, int k) {
     _data[i][j] = k;
   }
+
+  int get(int i, int j) {
+    if (i < 0 || j < 0 || i >= _width || j >= _height) return -1;
+    return _data[i][j];
+  }
 }
