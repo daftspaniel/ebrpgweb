@@ -1,7 +1,7 @@
 String gametitle = "8bit RPG";
 
 enum gameStates { TitleScreen, GameOn, GameOver }
-const int ROCK =0;
+const int ROCK = 0;
 const int MAINROUTE = 1;
 const int GRASS = 3;
 const int HOMEFLOOR = 2;
@@ -37,10 +37,24 @@ const int SPIDER = 2008;
 const int HEDGE = 2009;
 const int DRAGON = 2010;
 
-
 const int MAXMON = 9;
 const int DUCK = 3001;
 const int LLAMA = 3002;
 const int SAGE = 3003;
 const int FARMER = 3004;
 const int SHOPKEEPER = 3005;
+
+final List<int> obstacles = [
+  BRICK,
+  SHRUB,
+  FLOWER,
+  WATER,
+  FARMER,
+  SAGE,
+  LLAMA,
+  SHOPKEEPER,
+  DUCK,
+  ROCK
+];
+
+final String line = "--" * 40;
