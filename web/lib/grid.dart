@@ -26,6 +26,20 @@ class Grid {
     }
   }
 
+  List<int> getNeighbours(int x, int y) {
+    List<int> neighbours = new List<int>();
+    neighbours
+      ..add(_data[x - 1][y - 1])
+      ..add(_data[x][y - 1])
+      ..add(_data[x + 1][y - 1])
+      ..add(_data[x - 1][y])
+      ..add(_data[x + 1][y])
+      ..add(_data[x - 1][y + 1])
+      ..add(_data[x][y + 1])
+      ..add(_data[x + 1][y + 1]);
+    return neighbours;
+  }
+
   void set(int i, int j, int k) {
     _data[i][j] = k;
   }

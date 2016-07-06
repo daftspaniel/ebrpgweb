@@ -18,7 +18,18 @@ class EBGame {
   Player p1;
 
   bool screenUpdateRequired = true;
-  List<int> obstacles = [BRICK, SHRUB, FLOWER, WATER, FARMER, SAGE, LLAMA, SHOPKEEPER, DUCK,ROCK];
+  List<int> obstacles = [
+    BRICK,
+    SHRUB,
+    FLOWER,
+    WATER,
+    FARMER,
+    SAGE,
+    LLAMA,
+    SHOPKEEPER,
+    DUCK,
+    ROCK
+  ];
 
   EBGame(this.screen) {
     p1 = new Player();
@@ -95,6 +106,22 @@ class EBGame {
     //}
   }
 
+  void updateCharacters() {
+    List<int> neighbouring = village.getNeighbours(p1.x, p1.y);
+    if (neighbouring.contains(SHRUB)) {
+      status.add("The trees are very thick and tall.");
+    }
+  }
+//  def UpdateCharacters(self):"The trees are very thick and tall."
+//
+//        self.PrevText = self.TEXT
+//  self.TEXT = ""
+//  c = self.cur.getc(self.p1.px, self.p1.py)
+//  neighbouring = self.cur.getneigh(self.p1.px, self.p1.py)
+//  #print(neighbouring)
+//  if SHRUB in neighbouring:
+//  self.AddStatus("The trees are very thick and tall.")
+
   void setControls() {
     window.onKeyUp.listen((KeyboardEvent e) {
       int xdelta = 0;
@@ -117,8 +144,10 @@ class EBGame {
       if (target != -1 && obstacles.indexOf(target) == -1) {
         p1.x += xdelta;
         p1.y += ydelta;
+
+        updateCharacters();
+        screenUpdateRequired = true;
       }
-      screenUpdateRequired = true;
     });
   }
 }
