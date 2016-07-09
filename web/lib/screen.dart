@@ -32,20 +32,20 @@ class EightBitScreen {
     terminal.writeAt(3, 32, 'NAME  ${p1.name}');
     terminal.writeAt(3, 34, 'HP    ${p1.hp}');
 
-    terminal.writeAt(3, 36, 'LEVEL ${p1.level}');
-    terminal.writeAt(15, 36, 'XP    ${p1.exp}');
+    terminal.writeAt(3, 35, 'LEVEL ${p1.level}');
+    terminal.writeAt(15, 35, 'XP    ${p1.exp}');
 
-    terminal.writeAt(3, 37, 'GOLD    ${p1.gold}');
-    terminal.writeAt(15, 37, 'FOOD  ${p1.food}');
+    terminal.writeAt(3, 36, 'GOLD    ${p1.gold}');
+    terminal.writeAt(15, 36, 'FOOD  ${p1.food}');
 
     for (int i = 0; i < p1.heartCount; i++) {
-      terminal.drawGlyph(3 + i, 38, getGlyph(HEART));
+      terminal.drawGlyph(3 + i, 37, getGlyph(HEART));
     }
     for (int i = 0; i < p1.diamonds; i++) {
-      terminal.drawGlyph(3 + i, 39, getGlyph(DIAMOND));
+      terminal.drawGlyph(3 + i, 38, getGlyph(DIAMOND));
     }
     for (int i = p1.diamonds; i < (8 - p1.diamonds); i++) {
-      terminal.drawGlyph(3 + i, 39, getGlyph(DIAMOND_GREY));
+      terminal.drawGlyph(3 + i, 38, getGlyph(DIAMOND_GREY));
     }
   }
 
