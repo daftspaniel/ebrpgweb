@@ -6,6 +6,7 @@ import 'dart:async';
 import 'helpers.dart';
 import 'consts.dart';
 import 'player.dart';
+import 'cast.dart';
 
 class EBGame {
   EightBitScreen screen;
@@ -13,6 +14,7 @@ class EBGame {
 
   Grid village;
   Player p1;
+  Cast characters;
 
   bool screenUpdateRequired = true;
 
@@ -22,6 +24,8 @@ class EBGame {
     p1.y = 5;
     status = new StatusList();
     village = buildVillage();
+
+    characters = new Cast(p1, village, status);
     new Timer.periodic(new Duration(milliseconds: 100), (timer) => update());
     setControls();
   }
@@ -34,13 +38,6 @@ class EBGame {
     if (screenUpdateRequired) {
       screen.update(village, status, p1);
       screenUpdateRequired = false;
-    }
-  }
-
-  void updateCharacters() {
-    List<int> neighbouring = village.getNeighbours(p1.x, p1.y);
-    if (neighbouring.contains(SHRUB)) {
-      status.add("The trees are very thick and tall.");
     }
   }
 
@@ -67,7 +64,7 @@ class EBGame {
         p1.x += xdelta;
         p1.y += ydelta;
 
-        updateCharacters();
+        characters.update();
         screenUpdateRequired = true;
       }
     });

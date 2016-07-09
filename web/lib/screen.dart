@@ -36,7 +36,7 @@ class EightBitScreen {
     terminal.writeAt(15, 36, 'XP    ${p1.exp}');
 
     terminal.writeAt(3, 37, 'GOLD    ${p1.gold}');
-    terminal.writeAt(15, 37, 'FOOD    ${p1.food}');
+    terminal.writeAt(15, 37, 'FOOD  ${p1.food}');
 
     for (int i = 0; i < p1.heartCount; i++) {
       terminal.drawGlyph(3 + i, 38, getGlyph(HEART));
@@ -55,8 +55,8 @@ class EightBitScreen {
       ..centerText(30, line);
     for (int i = 0; i < 80; i++) terminal.drawGlyph(i, 30, getGlyph(LINE));
     for (int i = 1; i < 10; i++)
-      terminal.drawGlyph(41, 30 + i, getGlyph(VERTLINE));
-    terminal.drawGlyph(41, 30, getGlyph(TJOINLINE));
+      terminal.drawGlyph(25, 30 + i, getGlyph(VERTLINE));
+    terminal.drawGlyph(25, 30, getGlyph(TJOINLINE));
 
     int ox = 28;
     int oy = 5;
@@ -71,7 +71,7 @@ class EightBitScreen {
 
     int sy = 32;
     status.statusMessages
-        .forEach((String status) => terminal.writeAt(44, sy++, status));
+        .forEach((String status) => terminal.writeAt(27, sy++, status));
     render();
   }
 
