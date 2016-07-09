@@ -24,18 +24,3 @@ class Character {
     return (10 * (hp / maxhp)).toInt();
   }
 }
-//
-
-//def getAttack(self):
-//a = RND(attack) + RND(spirit)
-//if monster and hp<4:
-//a = 1
-//return a
-//
-//
-//def defend(self, oppAttack, defend = True ):
-//if defend:
-//a = int( (oppAttack - ((armour + agility) / 5)) );
-//else :
-//a = oppAttack
-//if a > 0: hp -= a;

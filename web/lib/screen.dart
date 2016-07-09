@@ -44,7 +44,7 @@ class EightBitScreen {
     for (int i = 0; i < p1.diamonds; i++) {
       terminal.drawGlyph(3 + i, 39, getGlyph(DIAMOND));
     }
-    for (int i = p1.diamonds; i < (10 - p1.diamonds); i++) {
+    for (int i = p1.diamonds; i < (8 - p1.diamonds); i++) {
       terminal.drawGlyph(3 + i, 39, getGlyph(DIAMOND_GREY));
     }
   }

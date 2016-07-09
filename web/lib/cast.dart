@@ -31,6 +31,10 @@ class Cast {
       status.add("INCREASE YOUR ATTACK BY 5 FOR ONLY 100 GOLD");
     }
 
+    if (neighbouring.contains(SAGE)) {
+      status.add(getSageLine());
+    }
+
     if (current == DOOR) {
       status.add("This leads to the village.");
     }
@@ -45,4 +49,8 @@ class Cast {
       p1.food += 1;
     }
   }
+}
+
+String getSageLine() {
+  return "THE SAGE SAYS '${sagelines[RND( sagelines.length )]}'";
 }

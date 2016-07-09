@@ -58,3 +58,28 @@ final List<int> obstacles = [
 ];
 
 final String line = "--" * 40;
+
+
+final List<String> sagelines = [
+  "Watch out for my evil brothers!",
+  "Blue is faster than Tuesday!",
+  "Don't get out much...",
+  "Who planted these trees?",
+  "Times change.",
+  "Selfie!",
+  "42",
+  "I Haz the wisdom",
+  "Onion is out today",
+  "Follow daftspaniel on Twitter",
+  "I am sticking with Dart 1.0 forever",
+  "Dart FTW",
+  "Somewhere be dragons",
+  "Find those diamonds fast",
+  "Orcs!",
+  "Apples help you live longer.",
+  ".......",
+  "Have you read the fine manual?",
+  "One day I will be in a real game.",
+  "7",
+  "Meh."
+];

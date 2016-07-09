@@ -27,7 +27,13 @@ class EBGame {
 
     characters = new Cast(p1, village, status);
     new Timer.periodic(new Duration(milliseconds: 100), (timer) => update());
+    new Timer.periodic(new Duration(milliseconds: 4000), (timer) => updateStatus());
     setControls();
+  }
+
+  void updateStatus() {
+    screenUpdateRequired = true;
+    status.add("");
   }
 
   void update() {
