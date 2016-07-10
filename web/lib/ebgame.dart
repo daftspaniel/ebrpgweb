@@ -48,6 +48,15 @@ class EBGame {
       p1.y = 0;
       screenUpdateRequired = true;
       status.add("You are in the dungeon.");
+    } else if (currentRoom.get(p1.x, p1.y) == DIAMOND) {
+      currentRoom = village;
+      inVillage = true;
+      p1.x = 5;
+      p1.y = 5;
+      screenUpdateRequired = true;
+      status.clear();
+      p1.diamonds++;
+      status.add("You are in the village.");
     }
     drawRoom();
   }

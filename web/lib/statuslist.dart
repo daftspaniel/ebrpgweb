@@ -10,7 +10,9 @@ class StatusList {
   }
 
   void add(String msg) {
-    if (statusMessages.last == msg) return;
+    if (statusMessages.length > 0 &&
+        msg.length > 0 &&
+        statusMessages.last == msg) return;
     statusMessages.add(msg);
     if (statusMessages.length > 4) {
       statusMessages.removeAt(0);

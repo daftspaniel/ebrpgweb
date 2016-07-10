@@ -55,6 +55,10 @@ Glyph getGlyph(int index) {
         Color.lightGreen, Color.darkYellow);
   } else if (index == HEART) {
     g = new Glyph.fromCharCode(CharCode.blackHeartSuit, Color.red, Color.black);
+  }
+  else if (index == DIAMOND) {
+    g = new Glyph.fromCharCode(
+        CharCode.blackDiamondSuit, Color.lightBlue, Color.lightYellow);
   } else if (index == DIAMOND_GREY) {
     g = new Glyph.fromCharCode(
         CharCode.blackDiamondSuit, Color.lightGray, Color.black);
