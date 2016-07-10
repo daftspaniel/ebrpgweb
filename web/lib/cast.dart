@@ -8,6 +8,11 @@ class Cast {
   Grid room;
   Player p1;
   StatusList status;
+
+  get currentPlayerLocation {
+    return room.get(p1.x, p1.y);
+  }
+
   Cast(this.p1, this.room, this.status) {}
 
   void update() {
@@ -33,6 +38,10 @@ class Cast {
 
     if (neighbouring.contains(SAGE)) {
       status.add(getSageLine());
+    }
+
+    if (neighbouring.contains(PORTAL)) {
+      status.add("The portal leads to adventures, danger and treasures.");
     }
 
     if (current == DOOR) {

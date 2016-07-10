@@ -1,8 +1,9 @@
 import 'grid.dart';
 import 'consts.dart';
+import 'util.dart';
 
 Grid buildVillage() {
-  Grid village = new Grid(24, 24, 102);
+  Grid village = new Grid(24, 24, SHRUB);
   village.setRect(1, 1, 22, 22, GRASS);
   village.setRect(0, 0, 8, 8, BRICK);
 
@@ -45,4 +46,18 @@ Grid buildVillage() {
   village.set(10, 10, ROCK);
   village.set(18, 16, SHOPKEEPER);
   return village;
+}
+
+Grid buildDungeon(int width, int height) {
+  Grid dungeon = new Grid(width, height, ROCK);
+  int sx = 0;
+  int sy = 0;
+  int ex = width - 1;
+  int ey = height - 1;
+  int iterations = 5 + RND(5);
+  for (int i = 0; i < iterations; i++) {
+    dungeon.makePath(sx, sy, ex, ey, MAINROUTE);
+  }
+  dungeon.set(ex, ey, DIAMOND);
+  return dungeon;
 }

@@ -53,13 +53,17 @@ class EightBitScreen {
     this
       ..clear()
       ..centerText(30, line);
-    for (int i = 0; i < 80; i++) terminal.drawGlyph(i, 30, getGlyph(LINE));
+
+    for (int i = 0; i < 80; i++)
+      terminal.drawGlyph(i, 30, getGlyph(LINE));
     for (int i = 1; i < 10; i++)
       terminal.drawGlyph(25, 30 + i, getGlyph(VERTLINE));
+
     terminal.drawGlyph(25, 30, getGlyph(TJOINLINE));
 
-    int ox = 28;
-    int oy = 5;
+    int ox = ((80 - currentroom.width) / 2).truncate();
+    int oy = ((30 - currentroom.height) / 2).truncate();
+
     for (int yy = 0; yy < currentroom.height; yy++) {
       for (int xx = 0; xx < currentroom.width; xx++) {
         drawChar(ox + xx, oy + yy, currentroom[xx][yy]);
