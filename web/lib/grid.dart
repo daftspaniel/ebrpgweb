@@ -1,3 +1,5 @@
+import 'util.dart';
+
 class Grid {
   int _width;
   int _height;
@@ -14,6 +16,7 @@ class Grid {
   }
 
   num get width => _width;
+
   num get height => _height;
 
   operator [](int index) => _data[index];
@@ -48,4 +51,33 @@ class Grid {
     if (i < 0 || j < 0 || i >= _width || j >= _height) return -1;
     return _data[i][j];
   }
-}
+
+  void makePath(int sx, int sy, int ex, int ey, int tile) {
+    set(sx, sy, tile);
+    int nextpath;
+
+    while (sx != ex || sy != ey) {
+      if (sx != ex) {
+        nextpath = RND(8);
+        if (sx + nextpath > ex) {
+          nextpath = ex - sx;
+        }
+        for (int i = 0; i < (nextpath); i++) {
+          sx += 1;
+          set(sx, sy, tile);
+        }
+      }
+
+      if (sy != ey) {
+        nextpath = RND(8);
+        if (sy + nextpath > ey) {
+          nextpath = ey - sy;
+        }
+        for (int i = 0; i < nextpath; i++) {
+          sy += 1;
+          set(sx, sy, tile);
+        }
+      }
+    } //while
+  }
+} //class
