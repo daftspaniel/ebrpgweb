@@ -4,14 +4,15 @@ import 'util.dart';
 
 Grid buildVillage() {
   Grid village = new Grid(24, 24, SHRUB);
-  village.setRect(1, 1, 22, 22, GRASS);
-  village.setRect(0, 0, 8, 8, BRICK);
 
-  village.setRect(15, 15, 8, 4, BRICK);
-  village.setRect(1, 1, 6, 6, HOMEFLOOR);
-  village.setRect(16, 16, 6, 2, HOMEFLOOR);
-  village.setRect(8, 4, 9, 1, MAINROUTE);
-  village.setRect(12, 5, 2, 17, MAINROUTE);
+  village
+    ..setRect(1, 1, 22, 22, GRASS)
+    ..setRect(0, 0, 8, 8, BRICK)
+    ..setRect(15, 15, 8, 4, BRICK)
+    ..setRect(1, 1, 6, 6, HOMEFLOOR)
+    ..setRect(16, 16, 6, 2, HOMEFLOOR)
+    ..setRect(8, 4, 9, 1, MAINROUTE)
+    ..setRect(12, 5, 2, 17, MAINROUTE);
 
   village.setRect(7, 4, 1, 1, DOOR);
   village.setRect(4, 2, 1, 1, CHEST);
@@ -50,14 +51,26 @@ Grid buildVillage() {
 
 Grid buildDungeon(int width, int height) {
   Grid dungeon = new Grid(width, height, ROCK);
+
   int sx = 0;
   int sy = 0;
   int ex = width - 1;
   int ey = height - 1;
   int iterations = 5 + RND(5);
+
   for (int i = 0; i < iterations; i++) {
     dungeon.makePath(sx, sy, ex, ey, MAINROUTE);
   }
+
+  for (int i = 0; i < width / 2; i++) {
+    sx = RND(width);
+    sy = RND(height);
+    if (dungeon.get(sx, sy) == ROCK) {
+      dungeon.set(sx, sy, GOLDORE);
+    }
+  }
+
   dungeon.set(ex, ey, DIAMOND);
+
   return dungeon;
 }

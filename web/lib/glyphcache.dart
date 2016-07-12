@@ -26,6 +26,9 @@ Glyph getGlyph(int index) {
   } else if (index == ROCK) {
     g = new Glyph.fromCharCode(
         CharCode.darkShade, Color.lightGray, Color.darkGray);
+  } else if (index == GOLDORE) {
+    g = new Glyph.fromCharCode(
+        CharCode.darkShade, Color.yellow, Color.darkYellow);
   } else if (index == FLOWER) {
     g = new Glyph.fromCharCode(
         CharCode.whiteSunWithRays, Color.yellow, Color.lightGreen);
@@ -55,8 +58,7 @@ Glyph getGlyph(int index) {
         Color.lightGreen, Color.darkYellow);
   } else if (index == HEART) {
     g = new Glyph.fromCharCode(CharCode.blackHeartSuit, Color.red, Color.black);
-  }
-  else if (index == DIAMOND) {
+  } else if (index == DIAMOND) {
     g = new Glyph.fromCharCode(
         CharCode.blackDiamondSuit, Color.lightBlue, Color.lightYellow);
   } else if (index == DIAMOND_GREY) {
