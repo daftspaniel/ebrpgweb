@@ -58,6 +58,8 @@ class Cast {
       p1.food += 1;
     }
   }
+
+  void moveMonsters(){}
 }
 
 String getSageLine() {

@@ -1,25 +1,50 @@
 import 'util.dart';
 
+class GridPoint {
+  int _x;
+  int _y;
+  int get x => _x;
+  int get y => _y;
+  GridPoint(this._x, this._y);
+}
+
 class Grid {
   int _width;
   int _height;
   int _defaultValue;
 
   List<List<int>> _data;
+  List<GridPoint> _spaces;
 
-  Grid(this._width, this._height, [this._defaultValue = 0]) {
-    _data = new List<List<int>>(_width);
+  GridPoint getRandomFreePoint() => _spaces[RND(_spaces.length - 1)];
 
-    for (int x = 0; x < _width; x++) {
-      _data[x] = new List<int>.filled(_height, _defaultValue);
-    }
-  }
+  get spaces => _spaces;
 
   num get width => _width;
 
   num get height => _height;
 
   operator [](int index) => _data[index];
+
+  Grid(this._width, this._height, [this._defaultValue = 0]) {
+    _data = new List<List<int>>(_width);
+    _spaces = new List<GridPoint>();
+    for (int x = 0; x < _width; x++) {
+      _data[x] = new List<int>.filled(_height, _defaultValue);
+    }
+  }
+
+  void buildSpaces(int spaceId) {
+    _spaces?.clear();
+    for (int xx = 0; xx < _width; xx++) {
+      for (int yy = 0; yy < _height; yy++) {
+        if (_data[xx][yy] == spaceId) {
+          print("$xx $yy ${_data[xx][yy]}");
+          _spaces.add(new GridPoint(xx, yy));
+        }
+      }
+    }
+  }
 
   void setRect(int x, int y, int w, int h, int c) {
     for (int xx = x; xx < x + w; xx++) {

@@ -13,10 +13,12 @@ class EBGame {
   StatusList status;
 
   Grid village;
+  Grid dungeon;
   Grid currentRoom;
 
   Player p1;
   Cast characters;
+  Cast dungeonMonsters;
 
   bool screenUpdateRequired = true;
   bool inVillage = true;
@@ -29,6 +31,8 @@ class EBGame {
     village = buildVillage();
     currentRoom = village;
     characters = new Cast(p1, village, status);
+    dungeonMonsters = new Cast(p1, dungeon, status);
+
     new Timer.periodic(new Duration(milliseconds: 100), (timer) => update());
     new Timer.periodic(
         new Duration(milliseconds: 4000), (timer) => updateStatus());
@@ -42,7 +46,8 @@ class EBGame {
 
   void update() {
     if (characters.currentPlayerLocation == PORTAL) {
-      currentRoom = buildDungeon(45, 25);
+      dungeon = buildDungeon(45, 25);
+      currentRoom = dungeon;
       inVillage = false;
       p1.x = 0;
       p1.y = 0;
@@ -69,33 +74,40 @@ class EBGame {
   }
 
   void setControls() {
-    window.onKeyUp.listen((KeyboardEvent e) {
-      int xdelta = 0;
-      int ydelta = 0;
-      if (e.keyCode == 38) {
-        ydelta = -1;
-      }
-      if (e.keyCode == 40) {
-        ydelta = 1;
-      }
-      if (e.keyCode == 39) {
-        xdelta++;
-      }
-      if (e.keyCode == 37) {
-        xdelta--;
-      }
-
-      int target = currentRoom.get(p1.x + xdelta, p1.y + ydelta);
-
-      if (target != -1 && obstacles.indexOf(target) == -1) {
-        p1.x += xdelta;
-        p1.y += ydelta;
-
-        if (inVillage) {
-          characters.update();
-        }
-        screenUpdateRequired = true;
-      }
+    window.onKeyDown.listen((KeyboardEvent e) {
+      keypressHandler(e);
     });
+  }
+
+  void keypressHandler(KeyboardEvent e) {
+    int xdelta = 0;
+    int ydelta = 0;
+    if (e.keyCode == 38) {
+      ydelta = -1;
+    }
+    if (e.keyCode == 40) {
+      ydelta = 1;
+    }
+    if (e.keyCode == 39) {
+      xdelta++;
+    }
+    if (e.keyCode == 37) {
+      xdelta--;
+    }
+
+    int target = currentRoom.get(p1.x + xdelta, p1.y + ydelta);
+
+    if (target != -1 && obstacles.indexOf(target) == -1) {
+      p1.x += xdelta;
+      p1.y += ydelta;
+
+      if (inVillage) {
+        characters.update();
+      }
+      else{
+        dungeonMonsters.moveMonsters();
+      }
+      screenUpdateRequired = true;
+    }
   }
 }

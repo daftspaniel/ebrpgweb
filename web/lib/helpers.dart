@@ -2,6 +2,8 @@ import 'grid.dart';
 import 'consts.dart';
 import 'util.dart';
 
+int getRandomMonster() => monsters[RND(monsters.length - 1)];
+
 Grid buildVillage() {
   Grid village = new Grid(24, 24, SHRUB);
 
@@ -69,8 +71,25 @@ Grid buildDungeon(int width, int height) {
       dungeon.set(sx, sy, GOLDORE);
     }
   }
+  for (int i = 0; i < (width / 5) + RND(5); i++) {
+    sx = RND(width);
+    sy = RND(height);
+    if (dungeon.get(sx, sy) == MAINROUTE) {
+      dungeon.set(sx, sy, APRICOT);
+    }
+  }
+  dungeon.buildSpaces(MAINROUTE);
+  int bads = (dungeon.spaces.length / (dungeon.width / 3)).toInt();
+
+  for (int i = 0; i < bads; i++) {
+    GridPoint point = dungeon.getRandomFreePoint();
+    if (point.x > 5 && point.y > 5) {
+      dungeon.set(point.x, point.y, getRandomMonster());
+    }
+  }
 
   dungeon.set(ex, ey, DIAMOND);
 
   return dungeon;
 }
+

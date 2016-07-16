@@ -37,6 +37,8 @@ const int SPIDER = 2008;
 const int HEDGE = 2009;
 const int DRAGON = 2010;
 
+final List<int> monsters = [NINJA,BLOB,EVILSAGE,GHOST,PHANTOM,SNAIL,SNAKE,SPIDER,HEDGE];
+
 const int MAXMON = 9;
 const int DUCK = 3001;
 const int LLAMA = 3002;

@@ -70,6 +70,15 @@ Glyph getGlyph(int index) {
   } else if (index == MAINROUTE) {
     g = new Glyph.fromCharCode(
         CharCode.lightShade, Color.lightYellow, Color.lightYellow);
+  } else if (index == APRICOT) {
+    g = new Glyph.fromCharCode(
+        CharCode.degreeSign, Color.orange, Color.lightYellow);
+  } else if (index == SNAKE) {
+    g = new Glyph.fromCharCode(
+        CharCode.squareRoot, Color.green, Color.lightYellow);
+  } else if (monsters.contains(index)) {
+    g = new Glyph.fromCharCode(
+        CharCode.beamedEighthNotes, Color.green, Color.red);
   } else if (index == FARMER || index == SHOPKEEPER || index == SAGE) {
     g = new Glyph.fromCharCode(
         CharCode.whiteSmilingFace, Color.red, Color.lightYellow);
