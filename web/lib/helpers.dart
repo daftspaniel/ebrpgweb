@@ -1,5 +1,5 @@
-import 'grid.dart';
 import 'consts.dart';
+import 'grid.dart';
 import 'util.dart';
 
 int getRandomMonster() => monsters[RND(monsters.length - 1)];
@@ -7,14 +7,13 @@ int getRandomMonster() => monsters[RND(monsters.length - 1)];
 Grid buildVillage() {
   Grid village = new Grid(24, 24, SHRUB);
 
-  village
-    ..setRect(1, 1, 22, 22, GRASS)
-    ..setRect(0, 0, 8, 8, BRICK)
-    ..setRect(15, 15, 8, 4, BRICK)
-    ..setRect(1, 1, 6, 6, HOMEFLOOR)
-    ..setRect(16, 16, 6, 2, HOMEFLOOR)
-    ..setRect(8, 4, 9, 1, MAINROUTE)
-    ..setRect(12, 5, 2, 17, MAINROUTE);
+  village..setRect(1, 1, 22, 22, GRASS)
+         ..setRect(0, 0, 8, 8, BRICK)
+         ..setRect(15, 15, 8, 4, BRICK)
+         ..setRect(1, 1, 6, 6, HOMEFLOOR)
+         ..setRect(16, 16, 6, 2, HOMEFLOOR)
+         ..setRect(12, 5, 2, 17, MAINROUTE)
+         ..setRect(8, 4, 9, 1, MAINROUTE);
 
   village.setRect(7, 4, 1, 1, DOOR);
   village.setRect(4, 2, 1, 1, CHEST);
@@ -84,7 +83,8 @@ Grid buildDungeon(int width, int height) {
   for (int i = 0; i < bads; i++) {
     GridPoint point = dungeon.getRandomFreePoint();
     if (point.x > 5 && point.y > 5) {
-      dungeon.set(point.x, point.y, getRandomMonster());
+      dungeon.set(point.x, point.y, monsters[i % monsters.length]);
+      //dungeon.set(point.x, point.y, getRandomMonster());
     }
   }
 

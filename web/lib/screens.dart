@@ -1,6 +1,7 @@
-import 'screen.dart';
-import 'consts.dart';
 import 'dart:html';
+
+import 'consts.dart';
+import 'screen.dart';
 
 EightBitScreen get init {
   CanvasElement canvas = new CanvasElement();

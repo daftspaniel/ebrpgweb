@@ -1,7 +1,7 @@
-import 'player.dart';
-import 'grid.dart';
-import 'statuslist.dart';
 import 'consts.dart';
+import 'grid.dart';
+import 'player.dart';
+import 'statuslist.dart';
 import 'util.dart';
 
 class Cast {
@@ -59,9 +59,9 @@ class Cast {
     }
   }
 
-  void moveMonsters(){}
+  void moveMonsters() {}
 }
 
 String getSageLine() {
-  return "THE SAGE SAYS '${sagelines[RND( sagelines.length )]}'";
+  return "THE SAGE SAYS '${sagelines[RND(sagelines.length)]}'";
 }

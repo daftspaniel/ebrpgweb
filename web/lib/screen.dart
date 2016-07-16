@@ -1,8 +1,9 @@
 import 'package:malison/malison.dart';
-import 'player.dart';
-import 'glyphcache.dart';
+
 import 'consts.dart';
+import 'glyphcache.dart';
 import 'grid.dart';
+import 'player.dart';
 import 'statuslist.dart';
 
 class EightBitScreen {

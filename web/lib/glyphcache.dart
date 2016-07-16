@@ -1,7 +1,9 @@
 import 'package:malison/malison.dart';
+
 import 'consts.dart';
 
 Map<int, Glyph> glyphCache = new Map<int, Glyph>();
+const Color GROUND = Color.lightYellow;
 
 Glyph getGlyph(int index) {
   Glyph g;
@@ -60,7 +62,7 @@ Glyph getGlyph(int index) {
     g = new Glyph.fromCharCode(CharCode.blackHeartSuit, Color.red, Color.black);
   } else if (index == DIAMOND) {
     g = new Glyph.fromCharCode(
-        CharCode.blackDiamondSuit, Color.lightBlue, Color.lightYellow);
+        CharCode.blackDiamondSuit, Color.lightBlue, GROUND);
   } else if (index == DIAMOND_GREY) {
     g = new Glyph.fromCharCode(
         CharCode.blackDiamondSuit, Color.lightGray, Color.black);
@@ -69,19 +71,43 @@ Glyph getGlyph(int index) {
         Color.lightGreen, Color.darkYellow);
   } else if (index == MAINROUTE) {
     g = new Glyph.fromCharCode(
-        CharCode.lightShade, Color.lightYellow, Color.lightYellow);
+        CharCode.lightShade, GROUND, GROUND);
   } else if (index == APRICOT) {
     g = new Glyph.fromCharCode(
-        CharCode.degreeSign, Color.orange, Color.lightYellow);
+        CharCode.degreeSign, Color.orange, GROUND);
   } else if (index == SNAKE) {
     g = new Glyph.fromCharCode(
-        CharCode.squareRoot, Color.green, Color.lightYellow);
-  } else if (monsters.contains(index)) {
+        CharCode.squareRoot, Color.green, GROUND);
+  } else if (index == BLOB) {
     g = new Glyph.fromCharCode(
-        CharCode.beamedEighthNotes, Color.green, Color.red);
+        CharCode.blackSmilingFace, Color.green, GROUND);
+  } else if (index == GHOST) {
+    g = new Glyph.fromCharCode(
+        CharCode.whiteSmilingFace, Color.white, GROUND);
+  } else if (index == PHANTOM) {
+    g = new Glyph.fromCharCode(
+        CharCode.downwardsArrow, Color.darkBlue, GROUND);
+  } else if (index == SNAIL) {
+    g = new Glyph.fromCharCode(
+        CharCode.greekCapitalLetterOmega, Color.darkGold, GROUND);
+  } else if (index == NINJA) {
+    g = new Glyph.fromCharCode(
+        CharCode.femaleSign, Color.purple, GROUND);
+  } else if (index == SPIDER) {
+    g = new Glyph.fromCharCode(
+        CharCode.whiteSunWithRays, Color.lightPurple, GROUND);
+  } else if (index == HEDGE) {
+    g = new Glyph.fromCharCode(
+        CharCode.blackSpadeSuit, Color.green, GROUND);
+  } else if (index == EVILSAGE) {
+    g = new Glyph.fromCharCode(
+        CharCode.whiteSmilingFace, Color.red, GROUND);
+//  } else if (monsters.contains(index)) {
+//    g = new Glyph.fromCharCode(
+//        CharCode.beamedEighthNotes, Color.green, Color.red);
   } else if (index == FARMER || index == SHOPKEEPER || index == SAGE) {
     g = new Glyph.fromCharCode(
-        CharCode.whiteSmilingFace, Color.red, Color.lightYellow);
+        CharCode.whiteSmilingFace, Color.red, GROUND);
   }
   glyphCache[index] = g;
   return g;

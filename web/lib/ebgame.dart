@@ -1,12 +1,13 @@
-import 'dart:html';
-import 'statuslist.dart';
-import 'grid.dart';
-import 'screen.dart';
 import 'dart:async';
-import 'helpers.dart';
-import 'consts.dart';
-import 'player.dart';
+import 'dart:html';
+
 import 'cast.dart';
+import 'consts.dart';
+import 'grid.dart';
+import 'helpers.dart';
+import 'player.dart';
+import 'screen.dart';
+import 'statuslist.dart';
 
 class EBGame {
   EightBitScreen screen;
@@ -104,7 +105,7 @@ class EBGame {
       if (inVillage) {
         characters.update();
       }
-      else{
+      else {
         dungeonMonsters.moveMonsters();
       }
       screenUpdateRequired = true;

@@ -1,5 +1,6 @@
 class StatusList {
   List<String> statusMessages;
+
   StatusList() {
     statusMessages = new List<String>();
     statusMessages.add("Welcome to the game");
