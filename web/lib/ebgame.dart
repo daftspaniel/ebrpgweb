@@ -10,25 +10,25 @@ import 'screen.dart';
 import 'statuslist.dart';
 
 class EBGame {
+
+  StatusList status = new StatusList();
+  Player p1 = new Player();
+
   EightBitScreen screen;
-  StatusList status;
+  bool screenUpdateRequired = true;
+  bool inVillage = true;
 
   Grid village;
   Grid dungeon;
   Grid currentRoom;
 
-  Player p1;
+
   Cast characters;
   Cast dungeonMonsters;
 
-  bool screenUpdateRequired = true;
-  bool inVillage = true;
-
   EBGame(this.screen) {
-    p1 = new Player();
     p1.x = 5;
     p1.y = 5;
-    status = new StatusList();
     village = buildVillage();
     currentRoom = village;
     characters = new Cast(p1, village, status);
@@ -46,23 +46,28 @@ class EBGame {
   }
 
   void update() {
-    if (characters.currentPlayerLocation == PORTAL) {
-      dungeon = buildDungeon(45, 25);
-      currentRoom = dungeon;
-      inVillage = false;
-      p1.x = 0;
-      p1.y = 0;
-      screenUpdateRequired = true;
-      status.add("You are in the dungeon.");
-    } else if (currentRoom.get(p1.x, p1.y) == DIAMOND) {
-      currentRoom = village;
-      inVillage = true;
-      p1.x = 5;
-      p1.y = 5;
-      screenUpdateRequired = true;
-      status.clear();
-      p1.diamonds++;
-      status.add("You are in the village.");
+    if (inVillage) {
+      if (characters.currentPlayerLocation == PORTAL) {
+        dungeon = buildDungeon(45, 25);
+        currentRoom = dungeon;
+        inVillage = false;
+        p1.x = 0;
+        p1.y = 0;
+        screenUpdateRequired = true;
+        status.add("You are in the dungeon.");
+      }
+    }
+    else {
+      if (currentRoom.get(p1.x, p1.y) == DIAMOND) {
+        currentRoom = village;
+        inVillage = true;
+        p1.x = 5;
+        p1.y = 5;
+        screenUpdateRequired = true;
+        status.clear();
+        p1.diamonds++;
+        status.add("You are in the village.");
+      }
     }
     drawRoom();
   }
@@ -106,7 +111,13 @@ class EBGame {
         characters.update();
       }
       else {
-        dungeonMonsters.moveMonsters();
+        int current = currentRoom.get(p1.x, p1.y);
+        if (current == APRICOT) {
+          status.add("You found an apricot.");
+          p1.food += 1;
+          currentRoom.set(p1.px, p1.py, MAINROUTE);
+        }
+        dungeonMonsters.moveMonsters(currentRoom);
       }
       screenUpdateRequired = true;
     }

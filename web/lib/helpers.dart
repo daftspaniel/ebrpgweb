@@ -13,10 +13,9 @@ Grid buildVillage() {
          ..setRect(1, 1, 6, 6, HOMEFLOOR)
          ..setRect(16, 16, 6, 2, HOMEFLOOR)
          ..setRect(12, 5, 2, 17, MAINROUTE)
-         ..setRect(8, 4, 9, 1, MAINROUTE);
-
-  village.setRect(7, 4, 1, 1, DOOR);
-  village.setRect(4, 2, 1, 1, CHEST);
+         ..setRect(8, 4, 9, 1, MAINROUTE)
+         ..setRect(7, 4, 1, 1, DOOR)
+         ..setRect(4, 2, 1, 1, CHEST);
 
   village.setRect(17, 3, 5, 5, WATER);
   village.setRect(20, 4, 1, 1, DUCK);

@@ -1,10 +1,15 @@
+import 'dart:math';
+
 import 'util.dart';
 
 class GridPoint {
   int _x;
   int _y;
+
   int get x => _x;
+
   int get y => _y;
+
   GridPoint(this._x, this._y);
 }
 
@@ -39,7 +44,6 @@ class Grid {
     for (int xx = 0; xx < _width; xx++) {
       for (int yy = 0; yy < _height; yy++) {
         if (_data[xx][yy] == spaceId) {
-          print("$xx $yy ${_data[xx][yy]}");
           _spaces.add(new GridPoint(xx, yy));
         }
       }
@@ -54,17 +58,38 @@ class Grid {
     }
   }
 
+  List<GridPoint> getPointsOfTypeWithinDistance(GridPoint origin,
+      List<int> types, int maxDistance) {
+    List<GridPoint> points = new List<GridPoint>();
+
+    for (int xx = 0; xx < _width; xx++) {
+      for (int yy = 0; yy < _height; yy++) {
+        if (getDistance(origin, xx, yy) <= maxDistance &&
+            types.contains(_data[xx][yy])
+        ) {
+          points.add(new GridPoint(xx, yy));
+        }
+      }
+    }
+    return points;
+  }
+
+  int getDistance(GridPoint origin, int xx, int yy) {
+    int xdistance = (xx - origin.x).abs();
+    int ydistance = (yy - origin.y).abs();
+    int straightLineDistance = sqrt(pow(xdistance, 2) + pow(ydistance, 2))
+        .toInt();
+//    print(xdistance);
+//    print(ydistance);
+//    print(straightLineDistance);
+    return straightLineDistance;
+  }
+
   List<int> getNeighbours(int x, int y) {
     List<int> neighbours = new List<int>();
-    neighbours
-      ..add(_data[x - 1][y - 1])
-      ..add(_data[x][y - 1])
-      ..add(_data[x + 1][y - 1])
-      ..add(_data[x - 1][y])
-      ..add(_data[x + 1][y])
-      ..add(_data[x - 1][y + 1])
-      ..add(_data[x][y + 1])
-      ..add(_data[x + 1][y + 1]);
+    neighbours..add(_data[x - 1][y - 1])..add(_data[x][y - 1])..add(
+        _data[x + 1][y - 1])..add(_data[x - 1][y])..add(_data[x + 1][y])..add(
+        _data[x - 1][y + 1])..add(_data[x][y + 1])..add(_data[x + 1][y + 1]);
     return neighbours;
   }
 

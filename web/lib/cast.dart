@@ -59,7 +59,12 @@ class Cast {
     }
   }
 
-  void moveMonsters() {}
+  void moveMonsters(Grid dungeon) {
+    print("---------");
+    List<GridPoint> nearbyMonsters = dungeon.getPointsOfTypeWithinDistance(
+        new GridPoint(p1.x, p1.y), monsters, 5);
+    nearbyMonsters.forEach((e) => print("${e.x},${e.y}    ${dungeon.get(e.x,e.y)}"));
+  }
 }
 
 String getSageLine() {
