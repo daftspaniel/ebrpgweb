@@ -63,7 +63,44 @@ class Cast {
     print("---------");
     List<GridPoint> nearbyMonsters = dungeon.getPointsOfTypeWithinDistance(
         new GridPoint(p1.x, p1.y), monsters, 5);
-    nearbyMonsters.forEach((e) => print("${e.x},${e.y}    ${dungeon.get(e.x,e.y)}"));
+
+    nearbyMonsters
+        .forEach((e) => print("${e.x},${e.y}    ${dungeon.get(e.x, e.y)}"));
+
+    nearbyMonsters.forEach((GridPoint monsterPos) {
+      int type = dungeon.gpget(monsterPos);
+      int dx = 0;
+      int dy = 0;
+
+      if (monsterPos.x > p1.x)
+        dx = -1;
+      else if (monsterPos.x < p1.x) dx = -1;
+
+      if (monsterPos.y > p1.y)
+        dy = -1;
+      else if (monsterPos.y < p1.y) dy = 1;
+      print("d $dx $dy");
+
+      if (dx != 0 && dy != 0) {
+        if (dungeon.get(monsterPos.x + dx, monsterPos.y) == MAINROUTE)
+          dy = 0;
+        else if (dungeon.get(monsterPos.x, monsterPos.y + dy) == MAINROUTE)
+          dx = 0;
+        else if (RND(2) == 1)
+          dx = 0;
+        else
+          dy = 0;
+      }
+      print("e $dx $dy");
+
+      GridPoint newPosition =
+      new GridPoint(monsterPos.x + dx, monsterPos.y + dy);
+
+      if (dungeon.gpget(newPosition) == MAINROUTE) {
+        dungeon.gpset(newPosition, type);
+        dungeon.gpset(monsterPos, MAINROUTE);
+      }
+    });
   }
 }
 

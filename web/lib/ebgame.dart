@@ -81,45 +81,55 @@ class EBGame {
 
   void setControls() {
     window.onKeyDown.listen((KeyboardEvent e) {
-      keypressHandler(e);
+      inGameKeyHandler(e);
     });
   }
 
-  void keypressHandler(KeyboardEvent e) {
+  void inGameKeyHandler(KeyboardEvent e) {
     int xdelta = 0;
     int ydelta = 0;
+
     if (e.keyCode == 38) {
       ydelta = -1;
     }
-    if (e.keyCode == 40) {
+    else if (e.keyCode == 40) {
       ydelta = 1;
     }
-    if (e.keyCode == 39) {
+    else if (e.keyCode == 39) {
       xdelta++;
     }
-    if (e.keyCode == 37) {
+    else if (e.keyCode == 37) {
       xdelta--;
     }
+
+    handlePlayerMove(xdelta, ydelta);
+  }
+
+  void handlePlayerMove(int xdelta, int ydelta) {
 
     int target = currentRoom.get(p1.x + xdelta, p1.y + ydelta);
 
     if (target != -1 && obstacles.indexOf(target) == -1) {
-      p1.x += xdelta;
-      p1.y += ydelta;
+      movePlayer(xdelta, ydelta);
+    }
+  }
 
-      if (inVillage) {
-        characters.update();
+  void movePlayer(int xdelta, int ydelta) {
+    p1.x += xdelta;
+    p1.y += ydelta;
+    screenUpdateRequired = true;
+
+    if (inVillage) {
+      characters.update();
+    }
+    else {
+      int current = currentRoom.get(p1.x, p1.y);
+      if (current == APRICOT) {
+        status.add("You found an apricot.");
+        p1.food += 1;
+        currentRoom.set(p1.x, p1.y, MAINROUTE);
       }
-      else {
-        int current = currentRoom.get(p1.x, p1.y);
-        if (current == APRICOT) {
-          status.add("You found an apricot.");
-          p1.food += 1;
-          currentRoom.set(p1.px, p1.py, MAINROUTE);
-        }
-        dungeonMonsters.moveMonsters(currentRoom);
-      }
-      screenUpdateRequired = true;
+      dungeonMonsters.moveMonsters(currentRoom);
     }
   }
 }

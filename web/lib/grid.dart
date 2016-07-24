@@ -79,18 +79,21 @@ class Grid {
     int ydistance = (yy - origin.y).abs();
     int straightLineDistance = sqrt(pow(xdistance, 2) + pow(ydistance, 2))
         .toInt();
-//    print(xdistance);
-//    print(ydistance);
-//    print(straightLineDistance);
     return straightLineDistance;
   }
 
   List<int> getNeighbours(int x, int y) {
-    List<int> neighbours = new List<int>();
-    neighbours..add(_data[x - 1][y - 1])..add(_data[x][y - 1])..add(
-        _data[x + 1][y - 1])..add(_data[x - 1][y])..add(_data[x + 1][y])..add(
-        _data[x - 1][y + 1])..add(_data[x][y + 1])..add(_data[x + 1][y + 1]);
-    return neighbours;
+//    List<int> neighbours = new List<int>();
+//    neighbours.addAll();
+//    neighbours..add(_data[x - 1][y - 1])..add(_data[x][y - 1])..add(
+//        _data[x + 1][y - 1])..add(_data[x - 1][y])..add(_data[x + 1][y])..add(
+//        _data[x - 1][y + 1])..add(_data[x][y + 1])..add(_data[x + 1][y + 1]);
+//
+    return [_data[x - 1][y - 1], _data[x][y - 1],
+    _data[x + 1][y - 1], _data[x - 1][y], _data[x + 1][y],
+    _data[x - 1][y + 1], _data[x][y + 1], _data[x + 1][y + 1]
+    ];
+    //return neighbours;
   }
 
   void set(int i, int j, int k) {
@@ -100,6 +103,14 @@ class Grid {
   int get(int i, int j) {
     if (i < 0 || j < 0 || i >= _width || j >= _height) return -1;
     return _data[i][j];
+  }
+
+  int gpget(GridPoint pos) {
+    return get(pos.x, pos.y);
+  }
+
+  void gpset(GridPoint pos, int k) {
+    set(pos.x, pos.y, k);
   }
 
   void makePath(int sx, int sy, int ex, int ey, int tile) {
