@@ -6,10 +6,10 @@ import 'dart:html';
 
 import 'lib/consts.dart';
 import 'lib/ebgame.dart';
-import 'lib/screen.dart';
+import 'lib/eightbitscreen.dart';
 import 'lib/screens.dart';
 
-EightBitScreen screen = init;
+EightBitScreen screen = initScreen;
 gameStates state = gameStates.GameOn;
 gameStates nextState = gameStates.TitleScreen;
 

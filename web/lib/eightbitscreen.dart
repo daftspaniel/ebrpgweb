@@ -39,15 +39,14 @@ class EightBitScreen {
     terminal.writeAt(3, 36, 'GOLD    ${p1.gold}');
     terminal.writeAt(15, 36, 'FOOD  ${p1.food}');
 
-    for (int i = 0; i < p1.heartCount; i++) {
+    for (int i = 0; i < p1.heartCount; i++)
       terminal.drawGlyph(3 + i, 37, getGlyph(HEART));
-    }
-    for (int i = 0; i < p1.diamonds; i++) {
+
+    for (int i = 0; i < p1.diamonds; i++)
       terminal.drawGlyph(3 + i, 38, getGlyph(DIAMOND));
-    }
-    for (int i = p1.diamonds; i < (8 - p1.diamonds); i++) {
+
+    for (int i = p1.diamonds; i < (8 - p1.diamonds); i++)
       terminal.drawGlyph(3 + i, 38, getGlyph(DIAMOND_GREY));
-    }
   }
 
   void update(Grid currentroom, StatusList status, Player p1) {
@@ -65,11 +64,10 @@ class EightBitScreen {
     int ox = ((80 - currentroom.width) / 2).truncate();
     int oy = ((30 - currentroom.height) / 2).truncate();
 
-    for (int yy = 0; yy < currentroom.height; yy++) {
-      for (int xx = 0; xx < currentroom.width; xx++) {
+    for (int yy = 0; yy < currentroom.height; yy++)
+      for (int xx = 0; xx < currentroom.width; xx++)
         drawChar(ox + xx, oy + yy, currentroom[xx][yy]);
-      }
-    }
+
     terminal.writeAt(ox + p1.x, oy + p1.y, "@", Color.yellow, Color.purple);
 
     displayUserDetails(p1);

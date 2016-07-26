@@ -102,9 +102,6 @@ Glyph getGlyph(int index) {
   } else if (index == EVILSAGE) {
     g = new Glyph.fromCharCode(
         CharCode.whiteSmilingFace, Color.red, GROUND);
-//  } else if (monsters.contains(index)) {
-//    g = new Glyph.fromCharCode(
-//        CharCode.beamedEighthNotes, Color.green, Color.red);
   } else if (index == FARMER || index == SHOPKEEPER || index == SAGE) {
     g = new Glyph.fromCharCode(
         CharCode.whiteSmilingFace, Color.red, GROUND);

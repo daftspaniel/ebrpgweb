@@ -1,9 +1,9 @@
 import 'consts.dart';
 import 'grid.dart';
+import 'gridpoint.dart';
 import 'player.dart';
 import 'statuslist.dart';
 import 'util.dart';
-import 'gridpoint.dart';
 
 class Cast {
   Grid room;
@@ -53,15 +53,14 @@ class Cast {
     }
     if (current == FTREE) {
       status.add("You are in the orchard.");
-      if (RND(7) == 1) {
+      if (RND(10) == 1) {
         status.add("You found an apple.");
+        p1.food += 1;
       }
-      p1.food += 1;
     }
   }
 
   void moveMonsters(Grid dungeon) {
-    print("---------");
     List<GridPoint> nearbyMonsters = dungeon.getPointsOfTypeWithinDistance(
         new GridPoint(p1.x, p1.y), monsters, 5);
 

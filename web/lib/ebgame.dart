@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:html';
 
+import 'arena.dart';
 import 'cast.dart';
 import 'consts.dart';
+import 'eightbitscreen.dart';
 import 'grid.dart';
 import 'helpers.dart';
 import 'player.dart';
-import 'screen.dart';
 import 'statuslist.dart';
 
 class EightBitGame {
@@ -17,7 +18,9 @@ class EightBitGame {
 
   bool screenUpdateRequired = true;
   bool inVillage = true;
+  bool inArena = false;
 
+  Arena arena;
   Grid village;
   Grid dungeon;
   Grid currentRoom;
@@ -25,16 +28,24 @@ class EightBitGame {
   Cast characters;
   Cast dungeonMonsters;
 
+  Timer gamePulse;
+  Timer statusPulse;
+
   EightBitGame(this.screen) {
     village = buildVillage();
     currentRoom = village;
     characters = new Cast(p1, village, status);
     dungeonMonsters = new Cast(p1, dungeon, status);
 
+    setupTimers();
+    setupControls();
+  }
+
+  void setupTimers() {
+    gamePulse =
     new Timer.periodic(new Duration(milliseconds: 100), (timer) => update());
-    new Timer.periodic(
+    statusPulse = new Timer.periodic(
         new Duration(milliseconds: 4000), (timer) => updateStatus());
-    setControls();
   }
 
   void updateStatus() {
@@ -53,6 +64,11 @@ class EightBitGame {
         screenUpdateRequired = true;
         status.add("You are in the dungeon.");
       }
+    }
+    else if (inArena) {
+      print("Arena");
+      status.add("The fight has begun!");
+
     }
     else {
       if (currentRoom.get(p1.x, p1.y) == DIAMOND) {
@@ -76,7 +92,7 @@ class EightBitGame {
     }
   }
 
-  void setControls() {
+  void setupControls() {
     window.onKeyDown.listen((KeyboardEvent e) {
       inGameKeyHandler(e);
     });

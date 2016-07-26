@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'gridpoint.dart';
 import 'util.dart';
 
@@ -10,8 +8,6 @@ class Grid {
 
   List<List<int>> _data;
   List<GridPoint> _spaces = new List<GridPoint>();
-
-  GridPoint getRandomFreePoint() => _spaces[RND(_spaces.length - 1)];
 
   get spaces => _spaces;
 
@@ -29,23 +25,20 @@ class Grid {
     }
   }
 
+  GridPoint getRandomFreePoint() => _spaces[RND(_spaces.length - 1)];
+
   void buildSpaces(int spaceId) {
     _spaces?.clear();
-    for (int xx = 0; xx < _width; xx++) {
-      for (int yy = 0; yy < _height; yy++) {
-        if (_data[xx][yy] == spaceId) {
+    for (int xx = 0; xx < _width; xx++)
+      for (int yy = 0; yy < _height; yy++)
+        if (_data[xx][yy] == spaceId)
           _spaces.add(new GridPoint(xx, yy));
-        }
-      }
-    }
   }
 
   void setRect(int x, int y, int w, int h, int c) {
-    for (int xx = x; xx < x + w; xx++) {
-      for (int yy = y; yy < y + h; yy++) {
+    for (int xx = x; xx < x + w; xx++)
+      for (int yy = y; yy < y + h; yy++)
         _data[xx][yy] = c;
-      }
-    }
   }
 
   List<GridPoint> getPointsOfTypeWithinDistance(GridPoint origin,
@@ -54,7 +47,7 @@ class Grid {
 
     for (int xx = 0; xx < _width; xx++) {
       for (int yy = 0; yy < _height; yy++) {
-        if (getDistance(origin, xx, yy) <= maxDistance &&
+        if (origin.getDistanceTo(xx, yy) <= maxDistance &&
             types.contains(_data[xx][yy])
         ) {
           points.add(new GridPoint(xx, yy));
@@ -62,14 +55,6 @@ class Grid {
       }
     }
     return points;
-  }
-
-  int getDistance(GridPoint origin, int xx, int yy) {
-    int xdistance = (xx - origin.x).abs();
-    int ydistance = (yy - origin.y).abs();
-    int straightLineDistance = sqrt(pow(xdistance, 2) + pow(ydistance, 2))
-        .toInt();
-    return straightLineDistance;
   }
 
   List<int> getNeighbours(int x, int y) {
