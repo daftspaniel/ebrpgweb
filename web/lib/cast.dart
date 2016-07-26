@@ -3,6 +3,7 @@ import 'grid.dart';
 import 'player.dart';
 import 'statuslist.dart';
 import 'util.dart';
+import 'gridpoint.dart';
 
 class Cast {
   Grid room;

@@ -9,12 +9,12 @@ import 'player.dart';
 import 'screen.dart';
 import 'statuslist.dart';
 
-class EBGame {
+class EightBitGame {
 
   StatusList status = new StatusList();
-  Player p1 = new Player();
-
+  Player p1 = new Player(5, 5);
   EightBitScreen screen;
+
   bool screenUpdateRequired = true;
   bool inVillage = true;
 
@@ -22,13 +22,10 @@ class EBGame {
   Grid dungeon;
   Grid currentRoom;
 
-
   Cast characters;
   Cast dungeonMonsters;
 
-  EBGame(this.screen) {
-    p1.x = 5;
-    p1.y = 5;
+  EightBitGame(this.screen) {
     village = buildVillage();
     currentRoom = village;
     characters = new Cast(p1, village, status);
@@ -106,7 +103,6 @@ class EBGame {
   }
 
   void handlePlayerMove(int xdelta, int ydelta) {
-
     int target = currentRoom.get(p1.x + xdelta, p1.y + ydelta);
 
     if (target != -1 && obstacles.indexOf(target) == -1) {

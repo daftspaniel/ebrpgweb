@@ -1,6 +1,7 @@
 import 'consts.dart';
 import 'grid.dart';
 import 'util.dart';
+import 'gridpoint.dart';
 
 int getRandomMonster() => monsters[RND(monsters.length - 1)];
 

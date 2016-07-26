@@ -1,17 +1,7 @@
 import 'dart:math';
 
+import 'gridpoint.dart';
 import 'util.dart';
-
-class GridPoint {
-  int _x;
-  int _y;
-
-  int get x => _x;
-
-  int get y => _y;
-
-  GridPoint(this._x, this._y);
-}
 
 class Grid {
   int _width;
@@ -19,7 +9,7 @@ class Grid {
   int _defaultValue;
 
   List<List<int>> _data;
-  List<GridPoint> _spaces;
+  List<GridPoint> _spaces = new List<GridPoint>();
 
   GridPoint getRandomFreePoint() => _spaces[RND(_spaces.length - 1)];
 
@@ -33,7 +23,7 @@ class Grid {
 
   Grid(this._width, this._height, [this._defaultValue = 0]) {
     _data = new List<List<int>>(_width);
-    _spaces = new List<GridPoint>();
+
     for (int x = 0; x < _width; x++) {
       _data[x] = new List<int>.filled(_height, _defaultValue);
     }
@@ -83,17 +73,10 @@ class Grid {
   }
 
   List<int> getNeighbours(int x, int y) {
-//    List<int> neighbours = new List<int>();
-//    neighbours.addAll();
-//    neighbours..add(_data[x - 1][y - 1])..add(_data[x][y - 1])..add(
-//        _data[x + 1][y - 1])..add(_data[x - 1][y])..add(_data[x + 1][y])..add(
-//        _data[x - 1][y + 1])..add(_data[x][y + 1])..add(_data[x + 1][y + 1]);
-//
     return [_data[x - 1][y - 1], _data[x][y - 1],
     _data[x + 1][y - 1], _data[x - 1][y], _data[x + 1][y],
     _data[x - 1][y + 1], _data[x][y + 1], _data[x + 1][y + 1]
     ];
-    //return neighbours;
   }
 
   void set(int i, int j, int k) {

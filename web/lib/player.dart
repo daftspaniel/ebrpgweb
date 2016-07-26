@@ -6,7 +6,7 @@ class Player extends Character {
   int food;
   int x, y;
 
-  Player() : super(
+  Player(this.x, this.y) : super(
       "Dartisan",
       1,
       25,
