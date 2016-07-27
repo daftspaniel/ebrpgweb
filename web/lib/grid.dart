@@ -57,7 +57,9 @@ class Grid {
     return points;
   }
 
-  List<int> getNeighbours(int x, int y) {
+  List<int> getNeighbours(GridPoint position) {
+    int x = position.x;
+    int y = position.y;
     return [_data[x - 1][y - 1], _data[x][y - 1],
     _data[x + 1][y - 1], _data[x - 1][y], _data[x + 1][y],
     _data[x - 1][y + 1], _data[x][y + 1], _data[x + 1][y + 1]

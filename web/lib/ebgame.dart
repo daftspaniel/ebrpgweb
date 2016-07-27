@@ -6,6 +6,7 @@ import 'cast.dart';
 import 'consts.dart';
 import 'eightbitscreen.dart';
 import 'grid.dart';
+import 'gridpoint.dart';
 import 'helpers.dart';
 import 'player.dart';
 import 'statuslist.dart';
@@ -13,14 +14,14 @@ import 'statuslist.dart';
 class EightBitGame {
 
   StatusList status = new StatusList();
-  Player p1 = new Player(5, 5);
+  Player p1 = new Player(new GridPoint(5, 5));
   EightBitScreen screen;
 
   bool screenUpdateRequired = true;
   bool inVillage = true;
   bool inArena = false;
 
-  Arena arena;
+  Arena fightArena;
   Grid village;
   Grid dungeon;
   Grid currentRoom;
@@ -59,8 +60,7 @@ class EightBitGame {
         dungeon = buildDungeon(45, 25);
         currentRoom = dungeon;
         inVillage = false;
-        p1.x = 0;
-        p1.y = 0;
+        p1.position = new GridPoint(0, 0);
         screenUpdateRequired = true;
         status.add("You are in the dungeon.");
       }
@@ -68,14 +68,13 @@ class EightBitGame {
     else if (inArena) {
       print("Arena");
       status.add("The fight has begun!");
-
+      fightArena = new Arena(p1, GHOST);
     }
     else {
-      if (currentRoom.get(p1.x, p1.y) == DIAMOND) {
+      if (currentRoom.gpget(p1.position) == DIAMOND) {
         currentRoom = village;
         inVillage = true;
-        p1.x = 5;
-        p1.y = 5;
+        p1.position = new GridPoint(5, 5);
         screenUpdateRequired = true;
         status.clear();
         p1.diamonds++;
@@ -119,7 +118,8 @@ class EightBitGame {
   }
 
   void handlePlayerMove(int xdelta, int ydelta) {
-    int target = currentRoom.get(p1.x + xdelta, p1.y + ydelta);
+    int target = currentRoom.get(
+        p1.position.x + xdelta, p1.position.y + ydelta);
 
     if (target != -1 && obstacles.indexOf(target) == -1) {
       movePlayer(xdelta, ydelta);
@@ -127,19 +127,18 @@ class EightBitGame {
   }
 
   void movePlayer(int xdelta, int ydelta) {
-    p1.x += xdelta;
-    p1.y += ydelta;
+    p1.position.addDeltas(xdelta, ydelta);
     screenUpdateRequired = true;
 
     if (inVillage) {
       characters.update();
     }
     else {
-      int current = currentRoom.get(p1.x, p1.y);
+      int current = currentRoom.gpget(p1.position);
       if (current == APRICOT) {
         status.add("You found an apricot.");
         p1.food += 1;
-        currentRoom.set(p1.x, p1.y, MAINROUTE);
+        currentRoom.gpset(p1.position, MAINROUTE);
       }
       dungeonMonsters.moveMonsters(currentRoom);
     }

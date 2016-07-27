@@ -1,17 +1,27 @@
 import 'character.dart';
+import 'gridpoint.dart';
 
 class Player extends Character {
   int diamonds;
   int exp;
   int food;
-  int x, y;
 
-  Player(this.x, this.y) : super(
+  GridPoint _position;
+
+  GridPoint get position {
+    return _position;
+  }
+
+  set position(GridPoint aPosition) {
+    _position = aPosition;
+  }
+
+  List items = [];
+
+  Player(this._position) : super(
       "Dartisan",
       1,
       25,
-      1,
-      1,
       1,
       4) {
     hp = 25;

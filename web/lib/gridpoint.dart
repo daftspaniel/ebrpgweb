@@ -17,4 +17,9 @@ class GridPoint {
         .toInt();
     return straightLineDistance;
   }
+
+  void addDeltas(int xDelta, int yDelta) {
+    _x += xDelta;
+    _y += yDelta;
+  }
 }

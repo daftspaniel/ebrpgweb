@@ -11,14 +11,14 @@ class Cast {
   StatusList status;
 
   get currentPlayerLocation {
-    return room.get(p1.x, p1.y);
+    return room.gpget(p1.position);
   }
 
   Cast(this.p1, this.room, this.status) {}
 
   void update() {
-    List<int> neighbouring = room.getNeighbours(p1.x, p1.y);
-    int current = room.get(p1.x, p1.y);
+    List<int> neighbouring = room.getNeighbours(p1.position);
+    int current = room.gpget(p1.position);
 
     if (neighbouring.contains(SHRUB)) {
       status.add("The trees are very thick and tall.");
@@ -48,7 +48,7 @@ class Cast {
     if (current == DOOR) {
       status.add("This leads to the village.");
     }
-    if (current == HOMEFLOOR && p1.y < 14) {
+    if (current == HOMEFLOOR && p1.position.y < 14) {
       status.add("You are home.");
     }
     if (current == FTREE) {
@@ -62,7 +62,7 @@ class Cast {
 
   void moveMonsters(Grid dungeon) {
     List<GridPoint> nearbyMonsters = dungeon.getPointsOfTypeWithinDistance(
-        new GridPoint(p1.x, p1.y), monsters, 5);
+        p1.position, monsters, 5);
 
     nearbyMonsters
         .forEach((e) => print("${e.x},${e.y}    ${dungeon.get(e.x, e.y)}"));
@@ -72,13 +72,13 @@ class Cast {
       int dx = 0;
       int dy = 0;
 
-      if (monsterPos.x > p1.x)
+      if (monsterPos.x > p1.position.x)
         dx = -1;
-      else if (monsterPos.x < p1.x) dx = -1;
+      else if (monsterPos.x < p1.position.x) dx = -1;
 
-      if (monsterPos.y > p1.y)
+      if (monsterPos.y > p1.position.y)
         dy = -1;
-      else if (monsterPos.y < p1.y) dy = 1;
+      else if (monsterPos.y < p1.position.y) dy = 1;
       print("d $dx $dy");
 
       if (dx != 0 && dy != 0) {

@@ -68,7 +68,8 @@ class EightBitScreen {
       for (int xx = 0; xx < currentroom.width; xx++)
         drawChar(ox + xx, oy + yy, currentroom[xx][yy]);
 
-    terminal.writeAt(ox + p1.x, oy + p1.y, "@", Color.yellow, Color.purple);
+    terminal.writeAt(ox + p1.position.x, oy + p1.position.y, "@", Color.yellow,
+        Color.purple);
 
     displayUserDetails(p1);
 
