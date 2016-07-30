@@ -21,8 +21,8 @@ Grid buildVillage() {
   village.setRect(17, 3, 5, 5, WATER);
   village.setRect(20, 4, 1, 1, DUCK);
   village.setRect(17, 7, 1, 1, DUCK);
-  village.set(18, 11, LLAMA);
-  village.set(19, 11, LLAMA);
+  village.setXY(18, 11, LLAMA);
+  village.setXY(19, 11, LLAMA);
   village.setRect(13, 5, 1, 1, SAGE);
 
   village.setRect(11, 8, 4, 3, MAINROUTE);
@@ -38,15 +38,15 @@ Grid buildVillage() {
 
   village.setRect(10, 2, 2, 1, FLOWER);
   village.setRect(9, 6, 2, 1, FLOWER);
-  village.set(8, 5, FLOWER);
+  village.setXY(8, 5, FLOWER);
   village.setRect(18, 13, 1, 2, FLOWER);
   village.setRect(2, 19, 6, 2, FLOWER);
 
-  village.set(10, 8, ROCK);
-  village.set(9, 9, ROCK);
-  village.set(10, 9, PORTAL);
-  village.set(10, 10, ROCK);
-  village.set(18, 16, SHOPKEEPER);
+  village.setXY(10, 8, ROCK);
+  village.setXY(9, 9, ROCK);
+  village.setXY(10, 9, PORTAL);
+  village.setXY(10, 10, ROCK);
+  village.setXY(18, 16, SHOPKEEPER);
   return village;
 }
 
@@ -66,15 +66,15 @@ Grid buildDungeon(int width, int height) {
   for (int i = 0; i < width / 2; i++) {
     sx = RND(width);
     sy = RND(height);
-    if (dungeon.get(sx, sy) == ROCK) {
-      dungeon.set(sx, sy, GOLDORE);
+    if (dungeon.getXY(sx, sy) == ROCK) {
+      dungeon.setXY(sx, sy, GOLDORE);
     }
   }
   for (int i = 0; i < (width / 5) + RND(5); i++) {
     sx = RND(width);
     sy = RND(height);
-    if (dungeon.get(sx, sy) == MAINROUTE) {
-      dungeon.set(sx, sy, APRICOT);
+    if (dungeon.getXY(sx, sy) == MAINROUTE) {
+      dungeon.setXY(sx, sy, APRICOT);
     }
   }
   dungeon.buildSpaces(MAINROUTE);
@@ -83,12 +83,12 @@ Grid buildDungeon(int width, int height) {
   for (int i = 0; i < bads; i++) {
     GridPoint point = dungeon.getRandomFreePoint();
     if (point.x > 5 && point.y > 5) {
-      dungeon.set(point.x, point.y, monsters[i % monsters.length]);
+      dungeon.setXY(point.x, point.y, monsters[i % monsters.length]);
       //dungeon.set(point.x, point.y, getRandomMonster());
     }
   }
 
-  dungeon.set(ex, ey, DIAMOND);
+  dungeon.setXY(ex, ey, DIAMOND);
 
   return dungeon;
 }

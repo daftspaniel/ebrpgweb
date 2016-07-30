@@ -71,7 +71,7 @@ class EightBitGame {
       fightArena = new Arena(p1, GHOST);
     }
     else {
-      if (currentRoom.gpget(p1.position) == DIAMOND) {
+      if (currentRoom.get(p1.position) == DIAMOND) {
         currentRoom = village;
         inVillage = true;
         p1.position = new GridPoint(5, 5);
@@ -86,7 +86,10 @@ class EightBitGame {
 
   void drawRoom() {
     if (screenUpdateRequired) {
-      screen.update(currentRoom, status, p1);
+      if (!inArena)
+        screen.update(currentRoom, status, p1);
+      else
+        screen.updateArena(status, p1);
       screenUpdateRequired = false;
     }
   }
@@ -118,7 +121,7 @@ class EightBitGame {
   }
 
   void handlePlayerMove(int xdelta, int ydelta) {
-    int target = currentRoom.get(
+    int target = currentRoom.getXY(
         p1.position.x + xdelta, p1.position.y + ydelta);
 
     if (target != -1 && obstacles.indexOf(target) == -1) {
@@ -134,13 +137,19 @@ class EightBitGame {
       characters.update();
     }
     else {
-      int current = currentRoom.gpget(p1.position);
+      int current = currentRoom.get(p1.position);
       if (current == APRICOT) {
         status.add("You found an apricot.");
         p1.food += 1;
-        currentRoom.gpset(p1.position, MAINROUTE);
+        currentRoom.set(p1.position, MAINROUTE);
       }
       dungeonMonsters.moveMonsters(currentRoom);
+
+      currentRoom.getNeighbours(p1.position).forEach((int item) {
+        if (monsters.contains(item))
+          print(item);
+        inArena = true;
+      });
     }
   }
 }

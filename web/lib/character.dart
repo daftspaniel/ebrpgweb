@@ -6,7 +6,6 @@ class Character {
 
   int armour = 0;
 
-
   int gold = 0;
   int level = 0;
   int attack = 0;

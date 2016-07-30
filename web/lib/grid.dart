@@ -25,6 +25,23 @@ class Grid {
     }
   }
 
+  void setXY(int x, int y, int k) {
+    _data[x][y] = k;
+  }
+
+  int getXY(int x, int y) {
+    if (x < 0 || y < 0 || x >= _width || y >= _height) return -1;
+    return _data[x][y];
+  }
+
+  int get(GridPoint pos) {
+    return getXY(pos.x, pos.y);
+  }
+
+  void set(GridPoint pos, int k) {
+    setXY(pos.x, pos.y, k);
+  }
+
   GridPoint getRandomFreePoint() => _spaces[RND(_spaces.length - 1)];
 
   void buildSpaces(int spaceId) {
@@ -60,31 +77,21 @@ class Grid {
   List<int> getNeighbours(GridPoint position) {
     int x = position.x;
     int y = position.y;
-    return [_data[x - 1][y - 1], _data[x][y - 1],
-    _data[x + 1][y - 1], _data[x - 1][y], _data[x + 1][y],
-    _data[x - 1][y + 1], _data[x][y + 1], _data[x + 1][y + 1]
-    ];
-  }
-
-  void set(int i, int j, int k) {
-    _data[i][j] = k;
-  }
-
-  int get(int i, int j) {
-    if (i < 0 || j < 0 || i >= _width || j >= _height) return -1;
-    return _data[i][j];
-  }
-
-  int gpget(GridPoint pos) {
-    return get(pos.x, pos.y);
-  }
-
-  void gpset(GridPoint pos, int k) {
-    set(pos.x, pos.y, k);
-  }
+    List<int> neighbours = new List<int>();
+    neighbours.add(getXY(x - 1, y - 1));
+    neighbours.add(getXY(x, y - 1));
+    neighbours.add(getXY(x + 1, y - 1));
+    neighbours.add(getXY(x - 1, y));
+    neighbours.add(getXY(x, y));
+    neighbours.add(getXY(x + 1, y));
+    neighbours.add(getXY(x - 1, y + 1));
+    neighbours.add(getXY(x, y + 1));
+    neighbours.add(getXY(x + 1, y + 1));
+    return neighbours;
+    }
 
   void makePath(int sx, int sy, int ex, int ey, int tile) {
-    set(sx, sy, tile);
+    setXY(sx, sy, tile);
     int nextpath;
 
     while (sx != ex || sy != ey) {
@@ -95,7 +102,7 @@ class Grid {
         }
         for (int i = 0; i < (nextpath); i++) {
           sx += 1;
-          set(sx, sy, tile);
+          setXY(sx, sy, tile);
         }
       }
 
@@ -106,7 +113,7 @@ class Grid {
         }
         for (int i = 0; i < nextpath; i++) {
           sy += 1;
-          set(sx, sy, tile);
+          setXY(sx, sy, tile);
         }
       }
     } //while

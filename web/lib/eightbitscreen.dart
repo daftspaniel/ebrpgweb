@@ -49,10 +49,53 @@ class EightBitScreen {
       terminal.drawGlyph(3 + i, 38, getGlyph(DIAMOND_GREY));
   }
 
-  void update(Grid currentroom, StatusList status, Player p1) {
+  void update(Grid room, StatusList status, Player p1) {
     this
-      ..clear()
-      ..centerText(30, line);
+      ..clear();
+
+    drawRoom(room, p1);
+
+    drawSeparators();
+
+    displayUserDetails(p1);
+
+    displayStatusMessages(status);
+
+    render();
+  }
+
+  void updateArena(StatusList status, Player p1) {
+    this
+      ..clear();
+
+    drawSeparators();
+
+    displayUserDetails(p1);
+
+    displayStatusMessages(status);
+
+    render();
+  }
+
+  void drawRoom(Grid room, Player p1) {
+    int ox = ((80 - room.width) / 2).truncate();
+    int oy = ((30 - room.height) / 2).truncate();
+
+    for (int yy = 0; yy < room.height; yy++)
+      for (int xx = 0; xx < room.width; xx++)
+        drawChar(ox + xx, oy + yy, room[xx][yy]);
+
+    terminal.writeAt(ox + p1.position.x, oy + p1.position.y, "@", Color.yellow,
+        Color.purple);
+  }
+
+  void displayStatusMessages(StatusList status) {
+    int sy = 32;
+    status.statusMessages
+        .forEach((String status) => terminal.writeAt(27, sy++, status));
+  }
+
+  void drawSeparators() {
 
     for (int i = 0; i < 80; i++)
       terminal.drawGlyph(i, 30, getGlyph(LINE));
@@ -60,23 +103,6 @@ class EightBitScreen {
       terminal.drawGlyph(25, 30 + i, getGlyph(VERTLINE));
 
     terminal.drawGlyph(25, 30, getGlyph(TJOINLINE));
-
-    int ox = ((80 - currentroom.width) / 2).truncate();
-    int oy = ((30 - currentroom.height) / 2).truncate();
-
-    for (int yy = 0; yy < currentroom.height; yy++)
-      for (int xx = 0; xx < currentroom.width; xx++)
-        drawChar(ox + xx, oy + yy, currentroom[xx][yy]);
-
-    terminal.writeAt(ox + p1.position.x, oy + p1.position.y, "@", Color.yellow,
-        Color.purple);
-
-    displayUserDetails(p1);
-
-    int sy = 32;
-    status.statusMessages
-        .forEach((String status) => terminal.writeAt(27, sy++, status));
-    render();
   }
 
   void drawChar(int x, int y, int index) {

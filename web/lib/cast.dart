@@ -11,14 +11,14 @@ class Cast {
   StatusList status;
 
   get currentPlayerLocation {
-    return room.gpget(p1.position);
+    return room.get(p1.position);
   }
 
   Cast(this.p1, this.room, this.status) {}
 
   void update() {
     List<int> neighbouring = room.getNeighbours(p1.position);
-    int current = room.gpget(p1.position);
+    int current = room.get(p1.position);
 
     if (neighbouring.contains(SHRUB)) {
       status.add("The trees are very thick and tall.");
@@ -65,10 +65,10 @@ class Cast {
         p1.position, monsters, 5);
 
     nearbyMonsters
-        .forEach((e) => print("${e.x},${e.y}    ${dungeon.get(e.x, e.y)}"));
+        .forEach((e) => print("${e.x},${e.y}    ${dungeon.getXY(e.x, e.y)}"));
 
     nearbyMonsters.forEach((GridPoint monsterPos) {
-      int type = dungeon.gpget(monsterPos);
+      int type = dungeon.get(monsterPos);
       int dx = 0;
       int dy = 0;
 
@@ -79,26 +79,26 @@ class Cast {
       if (monsterPos.y > p1.position.y)
         dy = -1;
       else if (monsterPos.y < p1.position.y) dy = 1;
-      print("d $dx $dy");
+      //print("d $dx $dy");
 
       if (dx != 0 && dy != 0) {
-        if (dungeon.get(monsterPos.x + dx, monsterPos.y) == MAINROUTE)
+        if (dungeon.getXY(monsterPos.x + dx, monsterPos.y) == MAINROUTE)
           dy = 0;
-        else if (dungeon.get(monsterPos.x, monsterPos.y + dy) == MAINROUTE)
+        else if (dungeon.getXY(monsterPos.x, monsterPos.y + dy) == MAINROUTE)
           dx = 0;
         else if (RND(2) == 1)
           dx = 0;
         else
           dy = 0;
       }
-      print("e $dx $dy");
+      //print("e $dx $dy");
 
       GridPoint newPosition =
       new GridPoint(monsterPos.x + dx, monsterPos.y + dy);
 
-      if (dungeon.gpget(newPosition) == MAINROUTE) {
-        dungeon.gpset(newPosition, type);
-        dungeon.gpset(monsterPos, MAINROUTE);
+      if (dungeon.get(newPosition) == MAINROUTE) {
+        dungeon.set(newPosition, type);
+        dungeon.set(monsterPos, MAINROUTE);
       }
     });
   }
