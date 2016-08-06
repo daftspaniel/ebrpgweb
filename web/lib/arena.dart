@@ -10,6 +10,8 @@ class Arena {
   int _lastPlayerAttack = 0;
   int _lastMonsterAttack = 0;
 
+  get monster => _monster;
+
   Arena(this._p1, this._monsterId) {
     createMonster();
   }

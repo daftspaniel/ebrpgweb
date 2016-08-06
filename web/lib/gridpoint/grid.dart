@@ -1,5 +1,5 @@
 import 'gridpoint.dart';
-import 'util.dart';
+import '../util.dart';
 
 class Grid {
   int _width;

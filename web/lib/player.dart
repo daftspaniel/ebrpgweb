@@ -1,5 +1,5 @@
 import 'character.dart';
-import 'gridpoint.dart';
+import 'gridpoint/gridpoint.dart';
 
 class Player extends Character {
   int diamonds;

@@ -5,8 +5,8 @@ import 'arena.dart';
 import 'cast.dart';
 import 'consts.dart';
 import 'eightbitscreen.dart';
-import 'grid.dart';
-import 'gridpoint.dart';
+import 'gridpoint/grid.dart';
+import 'gridpoint/gridpoint.dart';
 import 'helpers.dart';
 import 'player.dart';
 import 'statuslist.dart';
@@ -68,7 +68,9 @@ class EightBitGame {
     else if (inArena) {
       print("Arena");
       status.add("The fight has begun!");
+
       fightArena = new Arena(p1, GHOST);
+      status.add("You are fighting a " + fightArena.monster.name);
     }
     else {
       if (currentRoom.get(p1.position) == DIAMOND) {
@@ -89,7 +91,7 @@ class EightBitGame {
       if (!inArena)
         screen.update(currentRoom, status, p1);
       else
-        screen.updateArena(status, p1);
+        screen.updateArena(status, p1, fightArena.monster);
       screenUpdateRequired = false;
     }
   }

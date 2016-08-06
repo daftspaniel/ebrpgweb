@@ -1,6 +1,6 @@
 import 'consts.dart';
-import 'grid.dart';
-import 'gridpoint.dart';
+import 'gridpoint/grid.dart';
+import 'gridpoint/gridpoint.dart';
 import 'player.dart';
 import 'statuslist.dart';
 import 'util.dart';
