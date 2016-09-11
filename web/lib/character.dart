@@ -1,3 +1,5 @@
+import 'util.dart';
+
 class Character {
   String name = "Nameless Thingy";
 
@@ -19,5 +21,12 @@ class Character {
 
   get heartCount {
     return (10 * (hp / maxhp)).toInt();
+  }
+
+  int getAttack() {
+    int a = RND(attack);
+    if (monster && hp<4)
+      a = 1;
+    return a;
   }
 }

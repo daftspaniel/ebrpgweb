@@ -18,7 +18,7 @@ packages:
       name: barback
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.2+8"
+    version: "0.15.2+9"
   browser:
     description:
       name: browser
@@ -30,7 +30,7 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.1"
   csslib:
     description:
       name: csslib
@@ -97,4 +97,5 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0+3"
-sdk: ">=1.14.0 <2.0.0"
+sdks:
+  dart: ">=1.14.0 <2.0.0"

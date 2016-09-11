@@ -38,4 +38,11 @@ class Arena {
     else
     if (_monsterId == DRAGON) _monster = new Character("Dragon", 1, 50, 12, 12);
   }
+
+  void generateAttacks() {
+    _lastPlayerAttack = _p1.getAttack();
+    _lastMonsterAttack = _monster.getAttack();
+    print(_p1.getAttack());
+    print(_monster.getAttack());
+  }
 }

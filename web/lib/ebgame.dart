@@ -98,8 +98,18 @@ class EightBitGame {
 
   void setupControls() {
     window.onKeyDown.listen((KeyboardEvent e) {
-      inGameKeyHandler(e);
+      if (inArena)
+        inArenaKeyHandler(e);
+      else
+        inGameKeyHandler(e);
     });
+  }
+
+  void inArenaKeyHandler(KeyboardEvent e) {
+    print("pppp");
+    if (e.keyCode == 65) {
+    fightArena.generateAttacks();
+    }
   }
 
   void inGameKeyHandler(KeyboardEvent e) {

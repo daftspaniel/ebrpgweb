@@ -10,17 +10,20 @@ import 'player.dart';
 import 'statuslist.dart';
 
 class EightBitScreen {
-  final int columns = 80;
-  final int rows = 40;
-  final CanvasElement canvasTarget;
-  RetroTerminal terminal;
+  final int _columns = 80;
+  final int _rows = 40;
+  final CanvasElement _canvasTarget;
 
-  EightBitScreen(this.canvasTarget) {
-    terminal = new RetroTerminal.dos(80, 40, canvasTarget);
+  RetroTerminal terminal;
+  CanvasRenderingContext2D canvasContext;
+
+  EightBitScreen(this._canvasTarget) {
+    terminal = new RetroTerminal.dos(80, 40, _canvasTarget);
+    canvasContext = _canvasTarget.getContext("2d");
   }
 
   void centerText(int row, String text) {
-    int x = ((columns - text.length) / 2).floor();
+    int x = ((_columns - text.length) / 2).floor();
     terminal.writeAt(x, row, text);
   }
 
@@ -74,14 +77,13 @@ class EightBitScreen {
     displayUserDetails(p1);
     displayStatusMessages(status);
     render();
-    CanvasRenderingContext2D ctx = canvasTarget.getContext("2d");
-    ctx.scale(10, 10);
+
+    canvasContext.scale(10, 10);
     drawPlayer(p1, 0, 1);
-    terminal.writeAt(0, 1, "@", Color.yellow,
-        Color.purple);
+    terminal.writeAt(0, 1, "@", Color.yellow, Color.purple);
     terminal.drawGlyph(3, 1, getGlyph(EVILSAGE));
     render();
-    ctx.scale(0, 0);
+    canvasContext.scale(0, 0);
   }
 
   void drawRoom(Grid room, Player p1) {
@@ -107,8 +109,7 @@ class EightBitScreen {
   }
 
   void drawSeparators() {
-    for (int i = 0; i < 80; i++)
-      terminal.drawGlyph(i, 30, getGlyph(LINE));
+    for (int i = 0; i < 80; i++) terminal.drawGlyph(i, 30, getGlyph(LINE));
     for (int i = 1; i < 10; i++)
       terminal.drawGlyph(25, 30 + i, getGlyph(VERTLINE));
 
